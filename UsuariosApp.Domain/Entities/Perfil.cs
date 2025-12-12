@@ -7,20 +7,16 @@ using System.Threading.Tasks;
 namespace UsuariosApp.Domain.Entities
 {
     /// <summary>
-    /// Modelo de dados para usuário.
+    /// Modelo de dados para perfil.
     /// </summary>
-    public class Usuario
+    public class Perfil
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Nome { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Senha { get; set; } = string.Empty;
-        public DateTime DataHoraCriacao { get; set; } = DateTime.Now;
-        public Guid? PerfilId { get; set; } //Chave estrangeira
 
         #region Relacionamentos
 
-        public Perfil? Perfil { get; set; }
+        public List<Usuario>? Usuarios { get; set; }
 
         #endregion
     }
