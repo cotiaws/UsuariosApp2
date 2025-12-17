@@ -14,6 +14,11 @@ namespace UsuariosApp.Domain.Interfaces.Services
     public interface IUsuarioService
     {
         /// <summary>
+        /// Método para autenticação do usuário.
+        /// </summary>
+        AutenticarResponse Autenticar(AutenticarRequest request);
+
+        /// <summary>
         /// Método para criação de conta de usuário
         /// </summary>
         CriarContaResponse CriarConta(CriarContaRequest request);

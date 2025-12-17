@@ -71,5 +71,28 @@ namespace UsuariosApp.Domain.Services
                     usuario.DataHoraCriacao //Data e hora de criação
                 );
         }
+
+        public AutenticarResponse Autenticar(AutenticarRequest request)
+        {
+            //Buscar o usuário no banco de dados baseado no email e na senha.
+            var usuario = usuarioRepository.Get(request.email, CryptoHelper.ToSha256(request.senha));
+
+            //verificar se o usuário não foi encontrado
+            if(usuario == null)
+            {
+                throw new ApplicationException("Acesso negado. Usuário inválido.");
+            }
+
+            //retornar os dados do usuário autenticado
+            return new AutenticarResponse(
+                    usuario.Id, //Id do usuário
+                    usuario.Nome, //Nome do usuario
+                    usuario.Email, //Email do usuário
+                    usuario.Perfil?.Nome ?? string.Empty, //Nome do perfil do usuário
+                    DateTime.Now, //Data e hora de acesso
+                    DateTime.Now.AddHours(1), //Data e hora de expiração
+                    "<<TOKEN>>" //TOKEN do JWT (Fazer!)
+                );
+        }
     }
 }
